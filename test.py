@@ -1,21 +1,12 @@
 import numpy as np 
 import cv2
 import face_recognition
-#from datetime import datetime
 
 #image path  
 path = 'images\messi.jpg'
 img1 = cv2.imread(path) 
 path2 = r'D:\Projects\Group\iAttend\images\123.png'
 test_img1 = cv2.imread(path2) 
-
-#loading saved image
-#img1 = face_recognition.load_image_file('images/messi.jpg')
-#img1 = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
-
-#loading test image
-#test_img1 = face_recognition.load_image_file('test_images/test_img1.jpg')
-#test_img1 = cv2.cvtColor(test_img1,cv2.COLOR_BGR2RGB)
 
 #returns an array of bounding box of the test face 
 face_Location = face_recognition.face_locations(test_img1)[0]
