@@ -1,44 +1,75 @@
 import numpy as np 
 import cv2
 import face_recognition
+import os
 #from datetime import datetime
 
-#image path  
-path = r'D:\Projects\Group\iAttend\images\messi.jpg'
-img1 = cv2.imread(path) 
-path2 = r'D:\Projects\Group\iAttend\test_images\test_img1.jpg'
-test_img1 = cv2.imread(path2) 
+images = []
+known_names = []
+         
+def face_recog():
 
-#loading saved image
-#img1 = face_recognition.load_image_file('images/messi.jpg')
-#img1 = cv2.cvtColor(img1,cv2.COLOR_BGR2RGB)
+    cap = cv2.VideoCapture(0)
 
-#loading test image
-#test_img1 = face_recognition.load_image_file('test_images/test_img1.jpg')
-#test_img1 = cv2.cvtColor(test_img1,cv2.COLOR_BGR2RGB)
+    while True:
 
-#returns an array of bounding box of the test face 
-face_Location = face_recognition.face_locations(test_img1)[0]
+        # Grab a frame of video
+        ret, cap_img = cap.read()
 
-#returns a list of 128-dimensional face encodings for each face in the images
-face_Encoding = face_recognition.face_encodings(img1)[0]
-face_Encoding2 = face_recognition.face_encodings(test_img1)[0]
+        # Finds all the faces and their encodings in the current frame of video
+        cap_face_loc = face_recognition.face_locations(cap_img)
+        cap_face_enc = face_recognition.face_encodings(cap_img, cap_face_loc)
 
-#A list of tuples of found face locations in css (top, right, bottom, left) order
-start_point = (face_Location[3], face_Location[0]) 
-end_point = (face_Location[1], face_Location[2]) 
-color = (255, 0, 0) 
+        # i and j represent each single face encoding and face location
+        for i,j in zip(cap_face_enc, cap_face_loc):
+            comparison = face_recognition.compare_faces(encodings, i)
+            distances = face_recognition.face_distance(encodings, i)
+            #print(distance)
 
-#makes rectangle on located face
-cv2.rectangle(test_img1,start_point,end_point, color , cv2.LINE_4)
+            smallest_distance = np.argmin(distances)
+            top, right, bottom, left = j
+            color = (255, 0, 0) 
+            color2 = (0, 0, 255)
+            font = cv2.FONT_HERSHEY_PLAIN
 
-#comparing known face with the test face
-comparison = face_recognition.compare_faces([face_Encoding], face_Encoding2)
-print(comparison)
+            if comparison[smallest_distance]:
+                student = known_names[smallest_distance].upper()
+                #print(student)
+                #makes rectangle with the name on each located face
+                cv2.rectangle(cap_img,(left,top),(right,bottom), color , cv2.LINE_4)
+                cv2.putText(cap_img, student,(left+8, top -8), font , 1, color2, 2)
 
-#Displaying images
-cv2.imshow('Lionel Messi', img1)  
-cv2.imshow('Messi Test', test_img1)  
-cv2.waitKey(0)
+        cv2.imshow('MARKING ATTENDANCE . . . ', cap_img)
 
- 
+        #press q to quit
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+def getImages(path):
+
+    known_images = os.listdir(path)
+
+    for i in known_images:
+        img = cv2.imread(f'{path}/{i}')
+        images.append(img)
+        known_names.append(os.path.splitext(i)[0])
+
+    return known_names
+
+def getEncodings(images):
+
+    encodedList = []
+    for img in images:
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        encoded = face_recognition.face_encodings(img)[0]
+        encodedList.append(encoded)
+
+    return encodedList
+
+getImages('images')
+encodings = getEncodings(images)
+print('Encoding Complete!')
+face_recog()
