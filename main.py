@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import face_recognition
 import os
-#from datetime import datetime
+import datetime
 
 images = []
 known_names = []
@@ -33,11 +33,12 @@ def face_recog():
             font = cv2.FONT_HERSHEY_PLAIN
 
             if comparison[smallest_distance]:
-                student = known_names[smallest_distance].upper()
+                student_name = known_names[smallest_distance].upper()
                 #print(student)
                 #makes rectangle with the name on each located face
                 cv2.rectangle(cap_img,(left,top),(right,bottom), color , cv2.LINE_4)
-                cv2.putText(cap_img, student,(left+8, top -8), font , 1, color2, 2)
+                cv2.putText(cap_img, student_name,(left+8, top -8), font , 1, color2, 2)
+                takeAttendance(student_name)
 
         cv2.imshow('MARKING ATTENDANCE . . . ', cap_img)
 
@@ -69,7 +70,20 @@ def getEncodings(images):
 
     return encodedList
 
+def takeAttendance(student_name):
+    file = open('attendance_list.csv', 'r+')
+    data = file.readlines()
+    names = []
+    for i in data: 
+        line_list = i.split(',')
+        names.append(line_list[0])
+    if student_name not in names:
+        x = datetime.datetime.now()
+        file.writelines(f'\n{student_name},{x.strftime("%c")}')
+
 getImages('images')
 encodings = getEncodings(images)
 print('Encoding Complete!')
 face_recog()
+
+
