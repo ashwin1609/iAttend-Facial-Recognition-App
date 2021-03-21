@@ -57,7 +57,6 @@ def getImages(path):
         img = cv2.imread(f'{path}/{i}')
         images.append(img)
         known_names.append(os.path.splitext(i)[0])
-
     return known_names
 
 def getEncodings(images):
@@ -79,7 +78,7 @@ def takeAttendance(student_name):
         names.append(line_list[0])
     if student_name not in names:
         x = datetime.datetime.now()
-        file.writelines(f'\n{student_name},{x.strftime("%c")}')
+        file.writelines(f'\n{student_name},{x.strftime("%a %b %d")},{x.strftime("%X")}')
 
 getImages('images')
 encodings = getEncodings(images)
