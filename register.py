@@ -59,32 +59,6 @@ class MyWindow(QMainWindow):
         # camera code
         # finds available camera
         self.available_cameras = QCameraInfo.availableCameras()
-        if not self.available_cameras:
-            capture_button.setDisabled(True)
-            self.viewfinder = QLabel()
-            self.viewfinder.setText("No cameras were found")
-            self.viewfinder.setAlignment(Qt.AlignCenter)
-            self.viewfinder.show()
-            self.setCentralWidget(self.viewfinder)
-            #sys.exit()
-        else:
-            #change image path
-            self.save_path = "img/images"
-            self.viewfinder = QCameraViewfinder()
-
-            self.viewfinder.show()
-
-            self.setCentralWidget(self.viewfinder)
-            self.select_camera(0)
-
-        # creating a tool bar
-        toolbar = QToolBar("Camera Tool Bar")
-        self.addToolBar(toolbar)
-        toolbar.addAction(capture_button)
-
-        toolbar.setStyleSheet("background :#FCDBA9;")
-        toolbar.setFixedHeight(60)
-
         camera_selector = QComboBox()
 
         camera_selector.addItems([camera.description()
@@ -92,6 +66,27 @@ class MyWindow(QMainWindow):
 
         camera_selector.currentIndexChanged.connect(self.select_camera)
 
+        if not self.available_cameras:
+            capture_button.setDisabled(True)
+            camera_selector.setDisabled(True)
+            self.viewfinder = QLabel()
+            self.viewfinder.setText("No cameras were found")
+            self.viewfinder.setAlignment(Qt.AlignCenter)
+            self.setCentralWidget(self.viewfinder)
+            #sys.exit()
+        else:
+            #change image path
+            self.save_path = "img/images"
+            self.viewfinder = QCameraViewfinder()
+            self.setCentralWidget(self.viewfinder)
+            self.select_camera(0)
+        self.viewfinder.show()
+        # creating a tool bar
+        toolbar = QToolBar("Camera Tool Bar")
+        self.addToolBar(toolbar)
+        toolbar.addAction(capture_button)
+        toolbar.setStyleSheet("background :#FCDBA9;")
+        toolbar.setFixedHeight(60)
         toolbar.addWidget(camera_selector)
         self.show()
 
