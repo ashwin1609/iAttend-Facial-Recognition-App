@@ -51,8 +51,6 @@ def face_recog():
 
         cv2.imshow('MARKING ATTENDANCE . . . ', cap_img)
 
-        print(cv2.getWindowProperty('MARKING ATTENDANCE . . . ', cv2.WND_PROP_VISIBLE))
-
         #press q to quit
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
