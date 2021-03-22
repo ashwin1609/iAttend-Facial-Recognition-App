@@ -10,12 +10,21 @@ known_names = []
 def face_recog():
 
     cap = cv2.VideoCapture(0)
-
+    if not cap.read()[1]:
+        placeholder_img = cv2.imread('img/placeholder.jpg')
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        scale = 1.5
+        message = "Webcam not detected"
+        text_size = cv2.getTextSize(message, font, scale, 2)[0]
+        text_x = (placeholder_img.shape[1] - text_size[0]) / 2
+        text_y = (placeholder_img.shape[0] + text_size[1]) / 2
+        cv2.putText(placeholder_img, message, (int(text_x), int(text_y)), font, scale, (255, 255, 255), 2)
+        cv2.imshow("MARKING ATTENDANCE . . . ", placeholder_img)
+        cv2.waitKey(0)
+        quit()
     while True:
-
         # Grab a frame of video
         ret, cap_img = cap.read()
-
         # Finds all the faces and their encodings in the current frame of video
         cap_face_loc = face_recognition.face_locations(cap_img)
         cap_face_enc = face_recognition.face_encodings(cap_img, cap_face_loc)
@@ -28,7 +37,7 @@ def face_recog():
 
             smallest_distance = np.argmin(distances)
             top, right, bottom, left = j
-            color = (255, 0, 0) 
+            color = (255, 0, 0)
             color2 = (0, 0, 255)
             font = cv2.FONT_HERSHEY_PLAIN
 
@@ -42,10 +51,11 @@ def face_recog():
 
         cv2.imshow('MARKING ATTENDANCE . . . ', cap_img)
 
+        print(cv2.getWindowProperty('MARKING ATTENDANCE . . . ', cv2.WND_PROP_VISIBLE))
+
         #press q to quit
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
     cap.release()
     cv2.destroyAllWindows()
 
