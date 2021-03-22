@@ -76,11 +76,11 @@ def takeAttendance(student_name):
     for i in data: 
         line_list = i.split(',')
         names.append(line_list[0])
-    if student_name not in names:
+    #if student_name not in names:
         x = datetime.datetime.now()
         file.writelines(f'\n{student_name},{x.strftime("%a %b %d")},{x.strftime("%X")}')
 
-getImages('images')
+getImages('img/images')
 encodings = getEncodings(images)
 print('Encoding Complete!')
 face_recog()
