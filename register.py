@@ -11,9 +11,9 @@ from PyQt5.QtWidgets import *
 import os
 
 # Register Page
-class MyWindow(QMainWindow):
+class RegisterWindow(QMainWindow):
     def __init__(self):
-        super(MyWindow, self).__init__()
+        super().__init__()
         self.setGeometry(100, 100, 1000, 800)
         self.setWindowTitle("Register")
         self.initUI()
@@ -88,7 +88,6 @@ class MyWindow(QMainWindow):
         toolbar.setStyleSheet("background :#FCDBA9;")
         toolbar.setFixedHeight(60)
         toolbar.addWidget(camera_selector)
-        self.show()
 
     def select_camera(self, i):
 
@@ -107,7 +106,7 @@ class MyWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    win2 = MyWindow()
+    win2 = RegisterWindow()
     sys.exit(app.exec_())
 
 
