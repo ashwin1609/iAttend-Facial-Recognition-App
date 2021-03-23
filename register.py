@@ -1,5 +1,6 @@
 
 import sys
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import QPushButton
@@ -49,35 +50,15 @@ class MyWindow(QMainWindow):
                                    "border-style: outset;"
                                    "border-width: 2px;"
                                    "border-color: beige;")
-        # camera code
-        # finds available camera
-        self.available_cameras = QCameraInfo.availableCameras()
-        if not self.available_cameras:
-            sys.exit()
 
-        #change image path
-        self.save_path = "img/images"
-        self.viewfinder = QCameraViewfinder()
-
-        self.viewfinder.show()
-
-        self.setCentralWidget(self.viewfinder)
-        self.select_camera(0)
-
-        # creating a tool bar
-        toolbar = QToolBar("Camera Tool Bar")
-        self.addToolBar(toolbar)
 
         capture_button = QAction("CAPTURE", self)
-
         capture_button.triggered.connect(self.click_photo)
         capture_button.setFont(QFont('Times', 10))
 
-        toolbar.addAction(capture_button)
-
-        toolbar.setStyleSheet("background :#FCDBA9;")
-        toolbar.setFixedHeight(60)
-
+        # camera code
+        # finds available camera
+        self.available_cameras = QCameraInfo.availableCameras()
         camera_selector = QComboBox()
 
         camera_selector.addItems([camera.description()
@@ -85,6 +66,27 @@ class MyWindow(QMainWindow):
 
         camera_selector.currentIndexChanged.connect(self.select_camera)
 
+        if not self.available_cameras:
+            capture_button.setDisabled(True)
+            camera_selector.setDisabled(True)
+            self.viewfinder = QLabel()
+            self.viewfinder.setText("No cameras were found")
+            self.viewfinder.setAlignment(Qt.AlignCenter)
+            self.setCentralWidget(self.viewfinder)
+            #sys.exit()
+        else:
+            #change image path
+            self.save_path = "img/images"
+            self.viewfinder = QCameraViewfinder()
+            self.setCentralWidget(self.viewfinder)
+            self.select_camera(0)
+        self.viewfinder.show()
+        # creating a tool bar
+        toolbar = QToolBar("Camera Tool Bar")
+        self.addToolBar(toolbar)
+        toolbar.addAction(capture_button)
+        toolbar.setStyleSheet("background :#FCDBA9;")
+        toolbar.setFixedHeight(60)
         toolbar.addWidget(camera_selector)
         self.show()
 
