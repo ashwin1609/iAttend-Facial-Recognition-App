@@ -10,15 +10,16 @@ from login import LoginWindow
 
 def goToRegister(stacked_widget):
     stacked_widget.setCurrentIndex(1)
-    stacked_widget.show()
 
-def goToLogin(stacked_widget):
+
+def goToLogin(stacked_widget, loginPage):
     stacked_widget.setCurrentIndex(2)
-    stacked_widget.show()
+    loginPage.start()
+
 
 def goToHome(stacked_widget):
     stacked_widget.setCurrentIndex(0)
-    stacked_widget.show()
+
 
 
 # Main Page
@@ -87,7 +88,7 @@ if __name__ == "__main__":
     widget.addWidget(loginWindow)
     # set up the navigation buttons
     homeWindow.register.clicked.connect(lambda: widget.setCurrentIndex(1))
-    homeWindow.login.clicked.connect(lambda: widget.setCurrentIndex(2))
+    homeWindow.login.clicked.connect(lambda: goToLogin(widget, loginWindow))
 
     widget.setFixedSize(750, 525)
     widget.show()

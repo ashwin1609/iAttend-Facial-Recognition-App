@@ -27,7 +27,7 @@ class WorkerThread(QtCore.QObject):
     def run(self):
         while True:
             # Long running task ...
-            self.update
+            self.update()
             time.sleep(1)
 
 # Register Page
@@ -39,7 +39,6 @@ class LoginWindow(QMainWindow):
         self.setStyleSheet("background : #006699;")
         self.height = 525
         self.width = 750
-
 
     def initUI(self):
         self.image_frame = QLabel(self)
@@ -53,21 +52,20 @@ class LoginWindow(QMainWindow):
         main.encodings = main.getEncodings(main.images)
         self.cap = cv2.VideoCapture(0)
 
-        self.worker = WorkerThread(self.display)
+
+    def start(self):
+        self.worker = WorkerThread(lambda: self.display())
         self.workerThread = QtCore.QThread()
         self.workerThread.started.connect(self.worker.run)
         self.worker.moveToThread(self.workerThread)
         self.workerThread.start()
-        self.display()
 
     def display(self):
-
         cam_img = self.cap.read()[1]
         uiImage = main.face_recog(cam_img)
 
         # number of bytes per line (total size of image / height in px)
         bytes = uiImage.size * uiImage.itemsize / uiImage.shape[0]
-
         self.image = QtGui.QImage(uiImage.data, 750, 525, bytes, QtGui.QImage.Format_BGR888)
         self.image_frame.setPixmap(QtGui.QPixmap.fromImage(self.image))
         self.show()
