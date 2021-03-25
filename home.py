@@ -1,9 +1,12 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot
+import time
+
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import pyqtSlot, QObject, pyqtSignal
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import *
 from register import RegisterWindow
+from login import LoginWindow
 
 def goToRegister(stacked_widget):
     stacked_widget.setCurrentIndex(1)
@@ -17,24 +20,21 @@ def goToHome(stacked_widget):
     stacked_widget.setCurrentIndex(0)
     stacked_widget.show()
 
+
 # Main Page
 class HomeWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.title = "App"
-        self.top = 100
-        self.left = 100
-        self.width = 680
-        self.height = 500
         self.InitUI()
+        self.height = 525
+        self.width = 750
 
     def InitUI(self):
-        self.resize(750, 525)
         self.setAutoFillBackground(True)
         self.setWindowTitle("iAttend App")
         self.setStyleSheet("QMainWindow {\n"
-                           "     background-color: #006699; border: 1px solid black;\n"
-                           "     border-radius: 5px;\n" "}\n"
+                           "     background-color: #006699;\n}\n"
                            "QPushButton {\n"
                            "     background-color: #b3e6ff; border: 1px solid black;\n"
                            "     border-radius: 5px; font: bold 16px;\n }\n"
@@ -70,22 +70,30 @@ class HomeWindow(QMainWindow):
 
 
 
-
 if __name__ == "__main__":
+    def updateImg(widget, loginWindow):
+        widget.setCurrentIndex(2)
+        while(1):
+            loginWindow.display()
+
     import sys
     app = QApplication(sys.argv)
     homeWindow = HomeWindow()
     registerWindow = RegisterWindow()
+    loginWindow = LoginWindow()
     widget = QStackedWidget()
     widget.addWidget(homeWindow)
     widget.addWidget(registerWindow)
-
+    widget.addWidget(loginWindow)
     # set up the navigation buttons
     homeWindow.register.clicked.connect(lambda: widget.setCurrentIndex(1))
+    homeWindow.login.clicked.connect(lambda: widget.setCurrentIndex(2))
 
-    widget.resize(750, 525)
+    widget.setFixedSize(750, 525)
     widget.show()
     sys.exit(app.exec_())
+
+
 
 
 

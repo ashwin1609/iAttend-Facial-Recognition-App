@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtMultimedia import *
 from PyQt5.QtMultimediaWidgets import *
 from PyQt5.QtWidgets import *
+
 #from main import face_recog
 import os
 
@@ -14,7 +15,8 @@ import os
 class RegisterWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setGeometry(100, 100, 1000, 800)
+        self.height = 525
+        self.width = 750
         self.setWindowTitle("Register")
         self.initUI()
         self.setStyleSheet("background : #006699;")
@@ -30,6 +32,7 @@ class RegisterWindow(QMainWindow):
         self.nameLabel.setFont(QFont('Times', 13))
         self.nameLabel.move(270,80)
         self.textbox = QLineEdit(self)
+
         self.textbox.resize(250, 40)
         self.textbox.move(500, 80)
 
