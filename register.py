@@ -7,8 +7,6 @@ from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtMultimedia import *
 from PyQt5.QtMultimediaWidgets import *
 from PyQt5.QtWidgets import *
-
-#from main import face_recog
 import os
 
 # Register Page
@@ -20,13 +18,10 @@ class RegisterWindow(QMainWindow):
         self.setWindowTitle("Register")
         self.setStyleSheet("background : #006699;")
 
-   # def openLogin(self):
-  #      face_recog()
-
     def initUI(self):
         # text box
         self.nameLabel = QLabel(self)
-        self.nameLabel.setText('ENTER YOUR NAME :')
+        self.nameLabel.setText('ENTER YOUR INFO :')
         self.nameLabel.resize(215,40)
         self.nameLabel.setFont(QFont('Times', 13))
         self.nameLabel.move(270,80)
@@ -35,13 +30,13 @@ class RegisterWindow(QMainWindow):
         self.textbox.resize(250, 40)
         self.textbox.move(200, 10)
 
-        # log in button
-        self.login_button = QPushButton(self)
-        self.login_button.setText('LOG IN')
-        self.login_button.move(445, 735)
-        self.login_button.resize(100, 40)
-        self.login_button.setStyleSheet("background-color: #b3e6ff;")
-        #self.login_button.click.connect(self,openLogin)
+        # # log in button
+        # self.login_button = QPushButton(self)
+        # self.login_button.setText('LOG IN')
+        # self.login_button.move(445, 735)
+        # self.login_button.resize(100, 40)
+        # self.login_button.setStyleSheet("background-color: #b3e6ff;")
+        # #self.login_button.click.connect(self,openLogin)
 
         #shadow effect for the label
         shadow = QGraphicsDropShadowEffect()
@@ -105,8 +100,9 @@ class RegisterWindow(QMainWindow):
         self.current_camera_name = self.available_cameras[i].description()
 
     def click_photo(self):
-        mypath = os.path.join(self.save_path, "%s.jpg" % (self.textbox.text()))
-        self.capture.capture(f'C:/Users/Graem/iAttend/img/images/{self.textbox.text()}.jpg')
+        #mypath = os.path.join(self.save_path, "%s.jpg" % (self.textbox.text()))
+        #change images folder path
+        self.capture.capture(f'D:\Projects\Group\iAttend\img\images\{self.textbox.text()}.jpg')
         self.textbox.clear()
 
 if __name__ == "__main__":

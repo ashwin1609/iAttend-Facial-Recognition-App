@@ -51,7 +51,6 @@ class LoginWindow(QMainWindow):
         main.getImages('img/images')
         main.encodings = main.getEncodings(main.images)
 
-
     def start(self):
         self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         self.worker = WorkerThread(lambda: self.display())
@@ -72,8 +71,6 @@ class LoginWindow(QMainWindow):
         self.image = QtGui.QImage(uiImage.data, 750, 525, bytesWidth, QtGui.QImage.Format_BGR888)
         self.image_frame.setPixmap(QtGui.QPixmap.fromImage(self.image))
         self.show()
-
-
 
 
 if __name__ == "__main__":

@@ -16,11 +16,8 @@ def goToLogin(stacked_widget, loginPage):
     stacked_widget.setCurrentIndex(2)
     loginPage.start()
 
-
 def goToHome(stacked_widget):
     stacked_widget.setCurrentIndex(0)
-
-
 
 # Main Page
 class HomeWindow(QMainWindow):
@@ -55,7 +52,7 @@ class HomeWindow(QMainWindow):
         self.message.resize(500, 90)
         self.message.move(130, 220)
         self.message.setText("Welcome to iAttend, a facial recognition based attendance system created by group 23. "
-                             "Please click the register button, add your name and click the capture button to take a picture and save your name."
+                             "Please click the register button, add your name and student number ('name_studentnumber') click the capture button to take a picture and save your name."
                              " Once the registration is completed, click the login button to take your attendance.")
         # Register Button
         self.register = QPushButton(self)
@@ -68,7 +65,6 @@ class HomeWindow(QMainWindow):
         self.login.resize(271, 71)
         self.login.move(400, 380)
         self.login.setText("LOG IN")
-
 
 
 if __name__ == "__main__":
