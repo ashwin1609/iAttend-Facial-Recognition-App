@@ -18,7 +18,6 @@ class RegisterWindow(QMainWindow):
         self.height = 525
         self.width = 750
         self.setWindowTitle("Register")
-        self.initUI()
         self.setStyleSheet("background : #006699;")
 
    # def openLogin(self):
@@ -34,7 +33,7 @@ class RegisterWindow(QMainWindow):
         self.textbox = QLineEdit(self)
 
         self.textbox.resize(250, 40)
-        self.textbox.move(500, 80)
+        self.textbox.move(200, 10)
 
         # log in button
         self.login_button = QPushButton(self)
@@ -91,6 +90,9 @@ class RegisterWindow(QMainWindow):
         toolbar.setStyleSheet("background :#FCDBA9;")
         toolbar.setFixedHeight(60)
         toolbar.addWidget(camera_selector)
+        toolbar.addWidget(self.nameLabel)
+        toolbar.addWidget(self.textbox)
+        
 
     def select_camera(self, i):
 
@@ -103,8 +105,8 @@ class RegisterWindow(QMainWindow):
         self.current_camera_name = self.available_cameras[i].description()
 
     def click_photo(self):
-
-        self.capture.capture(os.path.join(self.save_path, "%s.jpg" % (self.textbox.text())))
+        mypath = os.path.join(self.save_path, "%s.jpg" % (self.textbox.text()))
+        self.capture.capture(f'C:/Users/Graem/iAttend/img/images/{self.textbox.text()}.jpg')
         self.textbox.clear()
 
 if __name__ == "__main__":

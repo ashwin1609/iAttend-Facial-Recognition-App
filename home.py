@@ -8,9 +8,9 @@ from PyQt5.QtWidgets import *
 from register import RegisterWindow
 from login import LoginWindow
 
-def goToRegister(stacked_widget):
+def goToRegister(stacked_widget, registerPage):
     stacked_widget.setCurrentIndex(1)
-
+    registerPage.initUI()
 
 def goToLogin(stacked_widget, loginPage):
     stacked_widget.setCurrentIndex(2)
@@ -72,10 +72,6 @@ class HomeWindow(QMainWindow):
 
 
 if __name__ == "__main__":
-    def updateImg(widget, loginWindow):
-        widget.setCurrentIndex(2)
-        while(1):
-            loginWindow.display()
 
     import sys
     app = QApplication(sys.argv)
@@ -87,7 +83,7 @@ if __name__ == "__main__":
     widget.addWidget(registerWindow)
     widget.addWidget(loginWindow)
     # set up the navigation buttons
-    homeWindow.register.clicked.connect(lambda: widget.setCurrentIndex(1))
+    homeWindow.register.clicked.connect(lambda: goToRegister(widget, registerWindow))
     homeWindow.login.clicked.connect(lambda: goToLogin(widget, loginWindow))
 
     widget.setFixedSize(750, 525)

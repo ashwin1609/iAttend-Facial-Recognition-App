@@ -9,7 +9,7 @@ known_names = []
 encodings = []
 
 def face_recog(img):
-    if not img:
+    if not img.any():
         placeholder_img = cv2.imread('img/placeholder.jpg')
         font = cv2.FONT_HERSHEY_SIMPLEX
         scale = 1.5
@@ -18,7 +18,6 @@ def face_recog(img):
         text_x = (placeholder_img.shape[1] - text_size[0]) / 2
         text_y = (placeholder_img.shape[0] + text_size[1]) / 2
         cv2.putText(placeholder_img, message, (int(text_x), int(text_y)), font, scale, (255, 255, 255), 2)
-
         resized_img = cv2.resize(placeholder_img, (750, 525))
         return resized_img
     else:
@@ -47,8 +46,8 @@ def face_recog(img):
                 cv2.rectangle(cap_img,(left,top),(right,bottom), color , cv2.LINE_4)
                 cv2.putText(cap_img, student_name,(left+8, top -8), font , 1, color2, 2)
                 takeAttendance(student_name)
-            resized_img = cv2.resize(cap_img, (750, 525))
-            return resized_img
+        resized_img = cv2.resize(cap_img, (750, 525))
+        return resized_img
 
 
 
