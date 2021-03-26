@@ -106,7 +106,7 @@ class RegisterWindow(QMainWindow):
 
     def click_photo(self):
         mypath = os.path.join(self.save_path, "%s.jpg" % (self.textbox.text()))
-        self.capture.capture(f'C:/Users/Graem/iAttend/img/images/{self.textbox.text()}.jpg')
+        self.capture.capture(mypath)
         self.textbox.clear()
 
 if __name__ == "__main__":
