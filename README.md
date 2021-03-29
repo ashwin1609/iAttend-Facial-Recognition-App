@@ -20,16 +20,16 @@ Python and Visual Studio need to be installed
 
 - Install dependencies and run in cmd as admin in project folder
 
-
+```
 pip install -r requirements.txt
-
+```
 
 ## Run Project
 
 Run the home.py file to start the application. Click on the 'Register' button, enter your info : (studentid_name), and click on the 'Capture' button to take a picture. Run the application again, click on the 'Login' button this time to mark your attendance.  
-
+```
 python home.py
-
+```
 
 ## Built With
 
