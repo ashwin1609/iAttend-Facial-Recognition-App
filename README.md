@@ -30,6 +30,14 @@ Run the home.py file to start the application. Click on the 'Register' button, e
 ```
 python home.py
 ```
+## Demo
+
+![Alt text](/img/home.JPG?raw=true "Home Window")
+
+![Alt text](/img/register.JPG?raw=true "Register Window")
+
+![Alt text](/img/attendance.JPG?raw=true "Login Window")
+
 
 ## Built With
 
