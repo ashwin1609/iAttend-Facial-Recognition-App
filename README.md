@@ -46,10 +46,12 @@ python home.py
 
 ## Authors
 
-* *Esam Uddin* - [esam191](https://github.com/esam191)
+* *Ashwin Shanmugam* - [ashwin1609](https://github.com/ashwin1609)
 
 * *Graem Sheppard* - [graemsheppard](https://github.com/graemsheppard)
 
-* *Ashwin Shanmugam* - [ashwin1609](https://github.com/ashwin1609)
+* *Esam Uddin* - [esam191](https://github.com/esam191)
 
 * *Mihir Patel* - [mihikumar1212](https://github.com/mihikumar1212)
+
+
